@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+  margin: 50px 100px;
+}
+
+.ant-card-actions {
+  background-color: #926CD6 !important;
+}
+
+.ant-card {
+  background-color: #5B2680;
+}
+
+.icon {
+  height: 100%;
+  color: white;
+}
+
+.icon--red {
+  color: rgb(255, 74, 74);
+}
+
+.icon--green {
+  color: rgb(16, 232, 16);
+}
+
+.icon:hover {
+  color: #4545FF;
+  transition: color 0.2s linear;
+}
+
+:where(.css-dev-only-do-not-override-10ed4xt).ant-card .ant-card-actions>li {
+  margin: 0;
+}
+
+:where(.css-dev-only-do-not-override-10ed4xt).ant-card .ant-card-actions>li >span {
+  height: 100%;
+}
+
+
+.anticon {
+  margin: 12px;
+}
