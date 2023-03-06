@@ -2,17 +2,17 @@ import './App.css';
 import 'antd';
 import axios from 'axios';
 import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Row, Col, Card, Button, Space, Form, Pagination } from 'antd';
+import { Row, Col, Card, Button, Space, Pagination } from 'antd';
 import { CardTitle, CardBody } from './style/card';
 import { ButtonView } from './style/button';
 import { IToDo } from './models';
 import { useEffect, useState } from 'react';
 import { FormAddToDo, FormUpdateToDo } from './components/FormToDo';
+import { byField } from './options/functions';
 
 function App() {
   const pathDefault: string = 'http://localhost:4000/todos';
   const [ToDoList, setToDoList] = useState<Array<IToDo>>([]);
-  const [form] = Form.useForm();
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [isOpenWindowCreate, setIsOpenWindowCreate] = useState<boolean>(true);
@@ -34,12 +34,6 @@ function App() {
     setDescription(ToDoList.filter(ToDo => ToDo.id === ToDoID)[0].description);
     setToDoID(ToDoID);
   }
-
-  function byField(field: any) {
-    return (a: any, b: any) => a[field] > b[field] ? 1 : -1;
-  }
-
-
 
   async function getToDoList() {
     await axios.get(pathDefault)
@@ -162,9 +156,9 @@ function App() {
           />
         </Col>
         <Col span={8}>
-          {isOpenWindowCreate &&
-            <FormAddToDo form={{ title: "Создать", sentForm: form }} todo={{ title: title, description: description }} createToDo={createToDo} setTitle={setTitle} setDescription={setDescription} /> //setTitle, setDescription
-            // <FormUpdateToDo form={{title: "Изменить", form: form}} todo={{title: title, description: description, id: ToDoID, todoFunction: {updateToDo, setTitle, setDescription}}}/>
+          {isOpenWindowCreate
+            ? <FormAddToDo todoNew={{title: title, description: description, createToDo: createToDo, setTitle: setTitle, setDescription: setDescription}} />
+            : <FormUpdateToDo todoChange={{title: title, description: description, id: ToDoID, updateToDo: updateToDo, setTitle: setTitle, setDescription: setDescription}}/>
           }
           <Row>
             <Col span={8}></Col>

@@ -1,44 +1,48 @@
 import { EditOutlined, FileAddOutlined } from "@ant-design/icons";
 import { Card, Form, Input } from "antd"
-import { IForm, IToDoNew } from "../models";
+import { IToDoChange, IToDoNew } from "../models";
 import { CardBody, CardTitle } from "../style/card";
 
-interface FormProps {
-  form: IForm,
-  todo: IToDoNew,
+interface FormAddProps {
+  todoNew: IToDoNew,
 }
 
+interface FormChangeProps {
+  todoChange: IToDoChange,
+}
 
-export const FormAddToDo = (props: any) => {
+export const FormAddToDo = ({todoNew}: FormAddProps) => {
+  const [form] = Form.useForm();
 
   return (
-    <Card title={props.form.title} headStyle={CardTitle} bodyStyle={CardBody} style={{marginBottom: "40px"}} actions={[
-        <div onClick={props.createToDo} className='icon'><FileAddOutlined key="add" /></div>
-      ]}>
-        <Form form={props.form.sentForm} layout="vertical">
-            <Form.Item noStyle>
-                <Input value={props.todo.title} onChange={e => props.setTitle(e.target.value)} style={{marginBottom: "30px"}} placeholder="Введите заголовок" />
-            </Form.Item>
-            <Form.Item noStyle>
-                <Input value={props.todo.description} onChange={e => props.setDescription(e.target.value)} placeholder="Введите описание" />
-            </Form.Item>
-        </Form>
+    <Card title={"Создать"} headStyle={CardTitle} bodyStyle={CardBody} style={{ marginBottom: "40px" }} actions={[
+      <div onClick={todoNew.createToDo} className='icon'><FileAddOutlined key="add" /></div>
+    ]}>
+      <Form form={form} layout="vertical">
+        <Form.Item noStyle>
+          <Input value={todoNew.title} onChange={e => todoNew.setTitle(e.target.value)} style={{ marginBottom: "30px" }} placeholder="Введите заголовок" />
+        </Form.Item>
+        <Form.Item noStyle>
+          <Input value={todoNew.description} onChange={e => todoNew.setDescription(e.target.value)} placeholder="Введите описание" />
+        </Form.Item>
+      </Form>
     </Card>
   );
 };
 
-export const FormUpdateToDo = (props: any) => { 
+export const FormUpdateToDo = ({todoChange}: FormChangeProps) => {
+  const [form] = Form.useForm();
 
   return (
-    <Card title={props.form.title} headStyle={CardTitle} bodyStyle={CardBody} style={{marginBottom: "40px"}} actions={[
-        <div onClick={() => props.todo.function.updateToDo(props.todo.id)} className='icon'><EditOutlined key="edit" /></div>
-      ]}>
-      <Form form={props.form.form} layout="vertical">
+    <Card title={"Изменить"} headStyle={CardTitle} bodyStyle={CardBody} style={{ marginBottom: "40px" }} actions={[
+      <div onClick={() => todoChange.updateToDo(todoChange.id)} className='icon'><EditOutlined key="edit" /></div>
+    ]}>
+      <Form form={form} layout="vertical">
         <Form.Item noStyle>
-          <Input value={props.todo.title} onChange={e => props.todo.function.setTitle(e.target.value)} style={{marginBottom: "30px"}} placeholder="Введите заголовок" />
+          <Input value={todoChange.title} onChange={e => todoChange.setTitle(e.target.value)} style={{ marginBottom: "30px" }} placeholder="Введите заголовок" />
         </Form.Item>
         <Form.Item noStyle>
-          <Input value={props.todo.description} onChange={e => props.todo.function.setDescription(e.target.value)} placeholder="Введите описание" />
+          <Input value={todoChange.description} onChange={e => todoChange.setDescription(e.target.value)} placeholder="Введите описание" />
         </Form.Item>
       </Form>
     </Card>

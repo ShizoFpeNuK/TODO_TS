@@ -9,16 +9,20 @@ export interface IToDo {
   updatedAt: string;
 }
 
-export interface IForm {
-  title: string;
-  sentForm: FormInstance<any>;
-}
-
 export interface IToDoNew {
   description: string;
-  id?: string;
   title: string;
-  // createToDo: (path: string) => void;
-  // setTitle: React.Dispatch<React.SetStateAction<string>>;
-  // setDescription: React.Dispatch<React.SetStateAction<string>>
+  createToDo: () => void;
+  setTitle: (value: string) => void;
+  setDescription: (value: string) => void;
+}
+
+
+export interface IToDoChange {
+  description: string;
+  id: string;
+  title: string;
+  updateToDo: (id: string) => void;
+  setTitle: (value: string) => void;
+  setDescription: (value: string) => void;
 }
